@@ -5,6 +5,9 @@
  */
 package visao;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 02338079698
@@ -28,45 +31,65 @@ public class Painel_entrada extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        barraMenu = new javax.swing.JMenuBar();
+        menuCadastro = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuAjuda = new javax.swing.JMenu();
+        itemMenuSobre = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema Cadastro");
 
-        jMenu1.setText("Cadastro");
+        menuCadastro.setText("Cadastro");
+        menuCadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCadastroActionPerformed(evt);
+            }
+        });
 
-        jMenuItem2.setText("Cadastro");
+        jMenuItem2.setText("Cidade");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        menuCadastro.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu1);
+        jMenuItem5.setText("Funcionario");
+        menuCadastro.add(jMenuItem5);
+
+        barraMenu.add(menuCadastro);
 
         jMenu2.setText("Venda");
 
         jMenuItem3.setText("jMenuItem3");
         jMenu2.add(jMenuItem3);
 
-        jMenuBar1.add(jMenu2);
+        barraMenu.add(jMenu2);
 
-        jMenu3.setText("Ajuda");
+        menuAjuda.setText("Ajuda");
+        menuAjuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAjudaActionPerformed(evt);
+            }
+        });
 
-        jMenuItem4.setText("jMenuItem4");
-        jMenu3.add(jMenuItem4);
+        itemMenuSobre.setText("Sobre");
+        itemMenuSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuSobreActionPerformed(evt);
+            }
+        });
+        menuAjuda.add(itemMenuSobre);
 
-        jMenuBar1.add(jMenu3);
+        barraMenu.add(menuAjuda);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,8 +106,27 @@ public class Painel_entrada extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+        FormCidade form = new FormCidade(this,true);//this: chama a a partir deste form e true: modal sobrepoem o form principal
+        form.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);//nao deica fechar o form pelo x
+        form.setLocationRelativeTo(null); //centro na tela
+        form.setResizable(false); //retira o botao maximizar
+ 
+        form.setVisible(true); //visualizas o formulario
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void menuCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuCadastroActionPerformed
+
+    private void menuAjudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAjudaActionPerformed
+        // TODO add your handling code here:
+            
+    }//GEN-LAST:event_menuAjudaActionPerformed
+
+    private void itemMenuSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuSobreActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Sistema de Cadastro\nDireitos Reservados\nVersão: 1.0");
+    }//GEN-LAST:event_itemMenuSobreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,18 +159,22 @@ public class Painel_entrada extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Painel_entrada().setVisible(true);
+                Painel_entrada form = new Painel_entrada();
+                form.setLocationRelativeTo(null);
+                form.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JMenuItem itemMenuSobre;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenu menuAjuda;
+    private javax.swing.JMenu menuCadastro;
     // End of variables declaration//GEN-END:variables
 }
