@@ -45,17 +45,21 @@ public class FormCidade extends javax.swing.JDialog {
             btn_editar.setEnabled(false);
             input_cidade.setText("");
             input_codigo.setText("");
+               btn_primeiro.setEnabled(false);
+            btn_proximo.setEnabled(false);
+            btn_anterior.setEnabled(false);
+            btn_ultimo.setEnabled(false);
             
         }else{
             btn_excluir.setEnabled(!editando);
             btn_editar.setEnabled(!editando);
+            btn_primeiro.setEnabled(!editando);
+            btn_proximo.setEnabled(!editando);
+            btn_anterior.setEnabled(!editando);
+            btn_ultimo.setEnabled(!editando);
         }
         btn_novo.setEnabled(!editando);
         btn_fechar.setEnabled(!editando);
-        btn_primeiro.setEnabled(!editando);
-        btn_proximo.setEnabled(!editando);
-        btn_anterior.setEnabled(!editando);
-        btn_ultimo.setEnabled(!editando);
         input_cidade.setEnabled(editando);
         cbx_uf.setEnabled(editando);
         tbl_cidades.setEnabled(editando);
@@ -136,6 +140,11 @@ public class FormCidade extends javax.swing.JDialog {
         painelNavegacao.setBorder(javax.swing.BorderFactory.createTitledBorder("Navegação"));
 
         btn_primeiro.setText("Primeiro");
+        btn_primeiro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_primeiroActionPerformed(evt);
+            }
+        });
         painelNavegacao.add(btn_primeiro);
 
         btn_anterior.setText("Anterior");
@@ -379,8 +388,9 @@ public class FormCidade extends javax.swing.JDialog {
 
     private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
         // TODO add your handling code here:
-        trataEdicao(false);
+        
         atulizaTabela();
+        trataEdicao(false);
         
     }//GEN-LAST:event_btn_cancelarActionPerformed
 
@@ -394,6 +404,10 @@ public class FormCidade extends javax.swing.JDialog {
         trataEdicao(false);
         
     }//GEN-LAST:event_btn_excluirActionPerformed
+
+    private void btn_primeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_primeiroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_primeiroActionPerformed
 
     /**
      * @param args the command line arguments
