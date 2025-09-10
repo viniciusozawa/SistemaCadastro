@@ -21,6 +21,7 @@ public class FormCidade extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         atulizaTabela();
+        trataEdicao(false);
     }
     
     public void atulizaTabela(){
@@ -206,9 +207,19 @@ public class FormCidade extends javax.swing.JDialog {
         jPanel3.add(btn_novo);
 
         btn_editar.setText("Editar");
+        btn_editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editarActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_editar);
 
         btn_cancelar.setText("Cancelar");
+        btn_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cancelarActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_cancelar);
 
         btn_salva.setText("Salvar");
@@ -220,6 +231,11 @@ public class FormCidade extends javax.swing.JDialog {
         jPanel3.add(btn_salva);
 
         btn_excluir.setText("Excluir");
+        btn_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluirActionPerformed(evt);
+            }
+        });
         jPanel3.add(btn_excluir);
 
         jLabel1.setText("Código:");
@@ -337,7 +353,7 @@ public class FormCidade extends javax.swing.JDialog {
         int linha = listaCidade.size() - 1;
         tbl_cidades.setRowSelectionInterval(linha, linha);
         btn_novo.requestFocus();
-        
+        trataEdicao(true);
         
         
         
@@ -345,7 +361,7 @@ public class FormCidade extends javax.swing.JDialog {
 
     private void btn_salvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvaActionPerformed
         // TODO add your handling code here:
-        
+        trataEdicao(false);
         int linhaselecionada = tbl_cidades.getSelectedRow();
         Cidade objcidade = listaCidade.get(linhaselecionada);
         objDaoCidade.salvar(objcidade);
@@ -353,6 +369,31 @@ public class FormCidade extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_btn_salvaActionPerformed
+
+    private void btn_editarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editarActionPerformed
+        // TODO add your handling code here:
+        trataEdicao(true);
+        input_cidade.requestFocus();
+        
+    }//GEN-LAST:event_btn_editarActionPerformed
+
+    private void btn_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelarActionPerformed
+        // TODO add your handling code here:
+        trataEdicao(false);
+        atulizaTabela();
+        
+    }//GEN-LAST:event_btn_cancelarActionPerformed
+
+    private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
+        // TODO add your handling code here:
+        int linhaSelecionada = tbl_cidades.getSelectedRow();
+        Cidade objcidade= listaCidade.get(linhaSelecionada);
+        objDaoCidade.remover(objcidade);
+        
+        atulizaTabela();
+        trataEdicao(false);
+        
+    }//GEN-LAST:event_btn_excluirActionPerformed
 
     /**
      * @param args the command line arguments
