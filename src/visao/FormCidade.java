@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package visao;
-
+import modelo.Cidade;
+import java.util.ArrayList;
 /**
  *
  * @author 02338079698
@@ -27,12 +28,15 @@ public class FormCidade extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaCidade = new javax.swing.JTable();
+        listaCidade = org.jdesktop.observablecollections.ObservableCollections.observableList(new ArrayList<Cidade>())
+        ;
         painelNavegacao = new javax.swing.JPanel();
         btn_primeiro = new javax.swing.JButton();
         btn_anterior = new javax.swing.JButton();
@@ -42,7 +46,7 @@ public class FormCidade extends javax.swing.JDialog {
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tbl_cidades = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         btn_novo = new javax.swing.JButton();
@@ -50,6 +54,12 @@ public class FormCidade extends javax.swing.JDialog {
         btn_cancelar = new javax.swing.JButton();
         btn_salva = new javax.swing.JButton();
         btn_excluir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        input_codigo = new javax.swing.JTextField();
+        input_cidade = new javax.swing.JTextField();
+        cbx_uf = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,37 +118,41 @@ public class FormCidade extends javax.swing.JDialog {
         });
         painelNavegacao.add(btn_fechar);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable2);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, listaCidade, tbl_cidades);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cod}"));
+        columnBinding.setColumnName("Codigo");
+        columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nome}"));
+        columnBinding.setColumnName("Nome Cidade");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${uf}"));
+        columnBinding.setColumnName("Uf Cidade");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane3.setViewportView(tbl_cidades);
+        if (tbl_cidades.getColumnModel().getColumnCount() > 0) {
+            tbl_cidades.getColumnModel().getColumn(0).setResizable(false);
+            tbl_cidades.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(163, 163, 163)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(191, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 744, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGap(0, 97, Short.MAX_VALUE))
         );
 
-        jTabbedPane4.addTab("tab1", jPanel1);
+        jTabbedPane4.addTab("Dados", jPanel1);
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Ações"));
 
@@ -157,13 +171,53 @@ public class FormCidade extends javax.swing.JDialog {
         btn_excluir.setText("Excluir");
         jPanel3.add(btn_excluir);
 
+        jLabel1.setText("Código:");
+
+        jLabel2.setText("Cidade:");
+
+        jLabel3.setText("UF:");
+
+        input_codigo.setEditable(false);
+        input_codigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbl_cidades, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.cod}"), input_codigo, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        input_codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_codigoActionPerformed(evt);
+            }
+        });
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbl_cidades, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nome}"), input_cidade, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        cbx_uf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SE", "TO" }));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tbl_cidades, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.uf}"), cbx_uf, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addComponent(input_codigo))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(input_cidade)
+                                .addComponent(cbx_uf, 0, 216, Short.MAX_VALUE)))))
                 .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -171,10 +225,22 @@ public class FormCidade extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(input_codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(input_cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(cbx_uf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
-        jTabbedPane4.addTab("tab2", jPanel2);
+        jTabbedPane4.addTab("Cadastro", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,6 +261,8 @@ public class FormCidade extends javax.swing.JDialog {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
+        bindingGroup.bind();
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -206,6 +274,10 @@ public class FormCidade extends javax.swing.JDialog {
         // TODO add your handling code here:
         dispose();//feche a janela
     }//GEN-LAST:event_btn_fecharActionPerformed
+
+    private void input_codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_codigoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,6 +332,12 @@ public class FormCidade extends javax.swing.JDialog {
     private javax.swing.JButton btn_proximo;
     private javax.swing.JButton btn_salva;
     private javax.swing.JButton btn_ultimo;
+    private javax.swing.JComboBox<String> cbx_uf;
+    private javax.swing.JTextField input_cidade;
+    private javax.swing.JTextField input_codigo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -269,8 +347,10 @@ public class FormCidade extends javax.swing.JDialog {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private java.util.List<Cidade> listaCidade;
     private javax.swing.JPanel painelNavegacao;
     private javax.swing.JTable tabelaCidade;
+    private javax.swing.JTable tbl_cidades;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
