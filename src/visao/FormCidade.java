@@ -6,6 +6,7 @@
 package visao;
 import modelo.Cidade;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import modelo.CidadeDao;
 /**
  *
@@ -65,6 +66,21 @@ public class FormCidade extends javax.swing.JDialog {
         tbl_cidades.setEnabled(editando);
     }
     
+    
+    public boolean validaCampos(){
+        if(!(input_cidade.getText().length() > 0)){
+            JOptionPane.showMessageDialog(null, "Informe o nome da cidade");
+            input_cidade.requestFocus();
+            return false;
+        }
+        if(!(cbx_uf.getSelectedIndex() >= 0)){
+            JOptionPane.showMessageDialog(null, "Selecione uma UF");
+            cbx_uf.requestFocus();
+            return false;
+        }
+        return true;
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,9 +164,19 @@ public class FormCidade extends javax.swing.JDialog {
         painelNavegacao.add(btn_primeiro);
 
         btn_anterior.setText("Anterior");
+        btn_anterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_anteriorActionPerformed(evt);
+            }
+        });
         painelNavegacao.add(btn_anterior);
 
         btn_proximo.setText("Próximo");
+        btn_proximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_proximoActionPerformed(evt);
+            }
+        });
         painelNavegacao.add(btn_proximo);
 
         btn_ultimo.setText("Último");
@@ -344,6 +370,10 @@ public class FormCidade extends javax.swing.JDialog {
 
     private void btn_ultimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ultimoActionPerformed
         // TODO add your handling code here:
+        int linha = tbl_cidades.getRowCount()-1;
+ 
+        tbl_cidades.setRowSelectionInterval(linha, linha);
+        tbl_cidades.scrollRectToVisible(tbl_cidades.getCellRect(linha, 0, true));
     }//GEN-LAST:event_btn_ultimoActionPerformed
 
     private void btn_fecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fecharActionPerformed
@@ -370,11 +400,14 @@ public class FormCidade extends javax.swing.JDialog {
 
     private void btn_salvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvaActionPerformed
         // TODO add your handling code here:
-        trataEdicao(false);
-        int linhaselecionada = tbl_cidades.getSelectedRow();
-        Cidade objcidade = listaCidade.get(linhaselecionada);
-        objDaoCidade.salvar(objcidade);
-        atulizaTabela();
+        if(validaCampos()){
+           trataEdicao(false);
+           int linhaselecionada = tbl_cidades.getSelectedRow();
+           Cidade objcidade = listaCidade.get(linhaselecionada);
+           objDaoCidade.salvar(objcidade);
+           atulizaTabela(); 
+        }
+        
         
         
     }//GEN-LAST:event_btn_salvaActionPerformed
@@ -396,18 +429,46 @@ public class FormCidade extends javax.swing.JDialog {
 
     private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
         // TODO add your handling code here:
-        int linhaSelecionada = tbl_cidades.getSelectedRow();
-        Cidade objcidade= listaCidade.get(linhaSelecionada);
-        objDaoCidade.remover(objcidade);
+        int opcao = JOptionPane.showOptionDialog(null, "Confirma exclusao ? ","Pergunta", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE, null, new String[ ]{"Sim", "Não"}, "Sim");
+        if(opcao == 0){
+            int linhaSelecionada = tbl_cidades.getSelectedRow();
+            Cidade objcidade= listaCidade.get(linhaSelecionada);
+            objDaoCidade.remover(objcidade);
         
-        atulizaTabela();
-        trataEdicao(false);
-        
+            atulizaTabela();
+            trataEdicao(false);
+        }
     }//GEN-LAST:event_btn_excluirActionPerformed
 
     private void btn_primeiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_primeiroActionPerformed
         // TODO add your handling code here:
+        tbl_cidades.setRowSelectionInterval(0, 0);
+        tbl_cidades.scrollRectToVisible(tbl_cidades.getCellRect(0, 0, true));
+        
+        
+        
     }//GEN-LAST:event_btn_primeiroActionPerformed
+
+    private void btn_anteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_anteriorActionPerformed
+        // TODO add your handling code here:
+        int linha = tbl_cidades.getSelectedRow();
+        if((linha-1)>=0){
+            linha--;
+        }
+        tbl_cidades.setRowSelectionInterval(0, 0);
+        tbl_cidades.scrollRectToVisible(tbl_cidades.getCellRect(linha, 0, true));
+    }//GEN-LAST:event_btn_anteriorActionPerformed
+
+    private void btn_proximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_proximoActionPerformed
+        // TODO add your handling code here:
+        int linha = tbl_cidades.getSelectedRow();
+        if((linha +1) <= (tbl_cidades.getRowCount()-1)){
+            linha++;
+        }
+        tbl_cidades.setRowSelectionInterval(linha, linha);
+        tbl_cidades.scrollRectToVisible(tbl_cidades.getCellRect(linha, 0, true));
+    }//GEN-LAST:event_btn_proximoActionPerformed
 
     /**
      * @param args the command line arguments

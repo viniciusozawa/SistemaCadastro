@@ -129,11 +129,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Anterior"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_anteriorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_proximo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Pr&#xf3;ximo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_proximoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_ultimo">
           <Properties>
