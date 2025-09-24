@@ -41,20 +41,83 @@ public class CidadeDao {
         return listaCidade;
     }
     
+    public boolean inserir(Cidade objCidade){
+        String mysql = "insert into cidade(nomeCidade, ufcidade) VALUES(?,?)";
+        
+        try{
+            PreparedStatement prt = ModuloConexao.getPreparableStatement(mysql);
+            prt.setString(1, objCidade.getNome());
+            prt.setString(2, objCidade.getUf());
+            if(prt.executeUpdate()>0){
+                JOptionPane.showMessageDialog(null, "Cidade Cadastrada com sucesso!");
+                return true;
+            }else{
+                JOptionPane.showMessageDialog(null, "Cidae não cadastrada!");
+                return false;
+            }
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro em mysql "+ex.getMessage());
+            return false;
+        }
+
+    }
+    
+    public boolean alterar(Cidade objCidade){
+        String mysql = "update cidade set nomeCidade = ? , ufcidade= ? WHERE codCidade = ?";
+        
+        try{
+            PreparedStatement prt = ModuloConexao.getPreparableStatement(mysql);
+            prt.setString(1, objCidade.getNome());
+            prt.setString(2, objCidade.getUf());
+            prt.setInt(3, objCidade.getCod());
+            if(prt.executeUpdate()>0){
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+                return true;
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro chave nao encontrada");
+                return false;
+            }
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro em mysql "+ex.getMessage());
+            return false;
+        }
+    }
+    
     
     public boolean salvar(Cidade objCidade){
         if(objCidade.getCod() == null){
-            Integer codigo = Dados.listaCidade.size() + 1;
-            objCidade.setCod(codigo);
-            Dados.listaCidade.add(objCidade);
-            
+            inserir(objCidade);
+            return true;
+        }else{
+            alterar(objCidade);
+            return true;
         }
-        return true;
+        
         
     }
     
+    
+    
+    
     public boolean remover(Cidade objCidade){
-        Dados.listaCidade.remove(objCidade);
-        return true;
+       String mysql = "delete from cidade where codCidade = ?";
+        
+        try{
+            PreparedStatement prt = ModuloConexao.getPreparableStatement(mysql);
+            prt.setInt(1, objCidade.getCod());
+            if(prt.executeUpdate()>0){
+                JOptionPane.showMessageDialog(null, "Apagado com sucesso");
+                return true;
+            }else{
+                JOptionPane.showMessageDialog(null, "Erro chave nao encontrada");
+                return false;
+            }
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro em mysql "+ex.getMessage());
+            return false;
+        }
     }
 }
