@@ -5,7 +5,13 @@
  */
 package modelo;
 
+import dal.ModuloConexao;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.Cidade;
 /**
  *
@@ -14,7 +20,25 @@ import modelo.Cidade;
 public class CidadeDao {
     
     public List<Cidade> getLista(){
-        return Dados.listaCidade;
+        String mysql = "select * from cidade";
+        List<Cidade> listaCidade = new ArrayList<>();
+        try{
+            PreparedStatement pst = ModuloConexao.getPreparableStatement(mysql);
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Cidade objCidade = new Cidade();
+                objCidade.setCod(rs.getInt("codCidade"));
+                objCidade.setNome(rs.getString("nomeCidade"));
+                objCidade.setUf(rs.getString("ufcidade"));
+                listaCidade.add(objCidade);
+            }
+            
+            
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro de SQL "+ex.getMessage());
+        }
+        
+        return listaCidade;
     }
     
     
