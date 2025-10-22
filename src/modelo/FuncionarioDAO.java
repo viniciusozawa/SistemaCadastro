@@ -79,15 +79,17 @@ public class FuncionarioDAO {
 
     }
 
-    public boolean alterar(Cidade objCidade) {
-        String mysql = "update cidade set nomeCidade = ? , ufcidade= ? WHERE codCidade = ?";
+    public boolean alterar(Funcionario objFuncionario) {
+        String mysql = "update cidade set nomeFuncionario = ? , salario= ?, dataNascimento=?, codigoCidade=? WHERE codCidade = ?";
 
         try {
             PreparedStatement prt = ModuloConexao.getPreparableStatement(mysql);
-            prt.setString(1, objCidade.getNome());
-            prt.setString(2, objCidade.getUf());
-            prt.setInt(3, objCidade.getCod());
-            if (prt.executeUpdate() > 0) {
+            prt.setString(1, objFuncionario.getNomeFuncionario());
+            prt.setDouble(2, objFuncionario.getSalarioFuncionario());
+            prt.setDate(3, new java.sql.Date(objFuncionario.getNascimentoFuncionario().getTimeInMillis()));
+             prt.setInt(4, objFuncionario.getObjCidade().getCod());
+            prt.setInt(5, objFuncionario.getCodigoFuncionario());
+             if (prt.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "Alterado com sucesso");
                 return true;
             } else {
@@ -96,28 +98,28 @@ public class FuncionarioDAO {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em mysql " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro em mysql na classe funcionarioDAO no metodo alterar" + ex.getMessage());
             return false;
         }
     }
 
-    public boolean salvar(Cidade objCidade) {
-        if (objCidade.getCod() == null) {
-            inserir(objCidade);
+    public boolean salvar(Funcionario objFuncionario) {
+        if (objFuncionario.getCodigoFuncionario() == null) {
+            inserir(objFuncionario);
             return true;
         } else {
-            alterar(objCidade);
+            alterar(objFuncionario);
             return true;
         }
 
     }
 
-    public boolean remover(Cidade objCidade) {
-        String mysql = "delete from cidade where codCidade = ?";
+    public boolean remover(Funcionario objFuncionario) {
+        String mysql = "delete from funcionario where codCidade = ?";
 
         try {
             PreparedStatement prt = ModuloConexao.getPreparableStatement(mysql);
-            prt.setInt(1, objCidade.getCod());
+            prt.setInt(1, objFuncionario.getCodigoFuncionario());
             if (prt.executeUpdate() > 0) {
                 JOptionPane.showMessageDialog(null, "Apagado com sucesso");
                 return true;
@@ -127,7 +129,7 @@ public class FuncionarioDAO {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro em mysql " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro em mysql na classe Funcionario no metodo remover" + ex.getMessage());
             return false;
         }
     }

@@ -61,6 +61,11 @@ public class Painel_entrada extends javax.swing.JFrame {
         menuCadastro.add(jMenuItem2);
 
         jMenuItem5.setText("Funcionario");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         menuCadastro.add(jMenuItem5);
 
         barraMenu.add(menuCadastro);
@@ -127,6 +132,16 @@ public class Painel_entrada extends javax.swing.JFrame {
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Sistema de Cadastro\nDireitos Reservados\nVersão: 1.0");
     }//GEN-LAST:event_itemMenuSobreActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        FormFuncionario form = new FormFuncionario(this,true);//this: chama a a partir deste form e true: modal sobrepoem o form principal
+        form.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);//nao deica fechar o form pelo x
+        form.setLocationRelativeTo(null); //centro na tela
+        form.setResizable(false); //retira o botao maximizar
+ 
+        form.setVisible(true); //visualizas o formulario
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

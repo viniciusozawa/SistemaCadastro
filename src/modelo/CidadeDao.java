@@ -116,7 +116,7 @@ public class CidadeDao {
     }
 
     public Cidade localizarCidade(int codigoCidade) {
-        String mysql = "select * from cidade where codigoCidade = ?";
+        String mysql = "select * from cidade where codCidade = ?";
         Cidade objCidade = new Cidade();
         
         try {
