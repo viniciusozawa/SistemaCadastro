@@ -42,6 +42,11 @@ public class Cidade implements Serializable{ // padrão javabeans, seguindo pelo
     public void setUf(String uf) {
         this.uf = uf;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
     
  
     
